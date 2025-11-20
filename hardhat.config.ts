@@ -62,6 +62,13 @@ const config: HardhatUserConfig = {
     sources: "./contracts",
     tests: "./test",
   },
+
+  gasReporter: {
+    currency: "USD",
+    enabled: process.env.REPORT_GAS ? true : false,
+    excludeContracts: [],
+    // FHE-specific gas reporting optimizations
+  },
 };
 
 export default config;
