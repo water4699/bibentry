@@ -55,5 +55,13 @@
     "tsconfig-paths-webpack-plugin": "^4.2.0",
     "typescript": "^5",
     "vitest": "^3.2.4"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start",
+    "test": "hardhat test",
+    "analyze": "npm run compile && npm run test"
   }
 }
