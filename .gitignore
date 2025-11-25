@@ -40,6 +40,7 @@ deployment-info.json
 # Private keys and sensitive data
 *.js
 *.ts
+!next.config.ts
 *.pem
 *.key
 private-keys/
