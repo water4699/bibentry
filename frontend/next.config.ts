@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   // Disable static optimization completely to avoid wagmi context issues
   output: 'standalone',
   trailingSlash: false,
+  // Force webpack instead of Turbopack for better module resolution
+  experimental: {
+    webpackBuildWorker: true,
+  },
   // Ensure proper TypeScript resolution
   transpilePackages: ['@zama-fhe/relayer-sdk', 'ethers'],
   // Experimental features compatible with Turbopack
