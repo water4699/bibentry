@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { FhevmInstance } from "./fhevmTypes";
-import { createFhevmInstance } from "@/fhevm/internal/fhevm";
+import { createFhevmInstance } from "./internal/fhevm";
 
 function _assert(condition: boolean, message?: string): asserts condition {
   if (!condition) {
