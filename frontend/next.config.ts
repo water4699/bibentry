@@ -12,15 +12,9 @@ const nextConfig: NextConfig = {
   // Ensure proper TypeScript resolution
   transpilePackages: ['@zama-fhe/relayer-sdk', 'ethers'],
   // Use webpack directly for better compatibility
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config) => {
     // Ensure TypeScript files are properly resolved
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.mjs'];
-
-    // Add path aliases for better module resolution
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname),
-    };
 
     return config;
   },
