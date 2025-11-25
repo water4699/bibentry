@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
-import { UseAthleteRegistrationReturnType, SportCategory } from "../hooks/useAthleteRegistration";
+import { UseAthleteRegistrationReturnType, SportCategory } from "@/hooks/useAthleteRegistration";
 
 interface AthleteRegistrationFormProps {
   athleteRegistration: UseAthleteRegistrationReturnType;

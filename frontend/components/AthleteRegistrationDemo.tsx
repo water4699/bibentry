@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useAccount } from "wagmi";
 import { AthleteRegistrationForm } from "./AthleteRegistrationForm";
 import { AthleteDataViewer } from "./AthleteDataViewer";
-import { useAthleteRegistration } from "../hooks/useAthleteRegistration";
+import { useAthleteRegistration } from "@/hooks/useAthleteRegistration";
 import { useMetaMaskEthersSigner } from "../hooks/metamask/useMetaMaskEthersSigner";
 import { useFhevm } from "../fhevm/useFhevm";
 import { useInMemoryStorage } from "../hooks/useInMemoryStorage";
