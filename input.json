@@ -1,0 +1,15 @@
+﻿{
+  "language": "Solidity",
+  "sources": {
+    "SimpleTest.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.27;\n\ncontract SimpleTest {\n    uint256 public value;\n    \n    constructor() {\n        value = 42;\n    }\n    \n    function setValue(uint256 _value) external {\n        value = _value;\n    }\n    \n    function getValue() external view returns (uint256) {\n        return value;\n    }\n}"
+    }
+  },
+  "settings": {
+    "outputSelection": {
+      "*": {
+        "*": ["abi", "evm.bytecode"]
+      }
+    }
+  }
+}

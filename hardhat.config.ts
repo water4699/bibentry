@@ -1,59 +1,57 @@
+import "@nomicfoundation/hardhat-toolbox";
 import "@fhevm/hardhat-plugin";
-import "@nomicfoundation/hardhat-chai-matchers";
-import "@nomicfoundation/hardhat-ethers";
-import "@nomicfoundation/hardhat-verify";
-import "@typechain/hardhat";
-import "hardhat-deploy";
-import "hardhat-gas-reporter";
-import type { HardhatUserConfig } from "hardhat/config";
-import { vars } from "hardhat/config";
-import "solidity-coverage";
+import { vars } from "hardhat/config.js";
+import type { HardhatUserConfig } from "hardhat/config.js";
 
-import "./tasks/accounts";
-import "./tasks/FHECounter";
-
-// Run 'npx hardhat vars setup' to see the list of variables that need to be set
-
-const MNEMONIC: string = vars.get("MNEMONIC", "test test test test test test test test test test test junk");
-const INFURA_API_KEY: string = vars.get("INFURA_API_KEY", "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+const INFURA_API_KEY: string = vars.get("INFURA_API_KEY", "b18fb7e6ca7045ac83c41157ab93f990");
+const PRIVATE_KEY: string = vars.get("PRIVATE_KEY", "079d46175e36992cc4ea3650fb2a24b04f30a5907d26022a664aca8221304283");
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "hardhat",
-  namedAccounts: {
-    deployer: 0,
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.26",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
   },
-  etherscan: {
-    apiKey: {
-      sepolia: vars.get("ETHERSCAN_API_KEY", ""),
+          viaIR: true,
     },
   },
-  gasReporter: {
-    currency: "USD",
-    enabled: process.env.REPORT_GAS ? true : false,
-    excludeContracts: [],
+      {
+        version: "0.8.27",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+          viaIR: true,
+        },
+      },
+    ],
+  },
+  fhevm: {
+    // FHEVM configuration - 启用FHEVM支持
+    localhost: {
+      chainId: 31337,
+      url: "http://127.0.0.1:8545"
+    }
   },
   networks: {
     hardhat: {
-      accounts: {
-        mnemonic: MNEMONIC,
-      },
       chainId: 31337,
+      // 启用持久化存储，保存合约状态和部署信息
+      saveDeployments: true,
     },
-    anvil: {
-      accounts: {
-        mnemonic: MNEMONIC,
-        path: "m/44'/60'/0'/0/",
-        count: 10,
-      },
+    localhost: {
+      url: "http://127.0.0.1:8545",
       chainId: 31337,
-      url: "http://localhost:8545",
+      // 本地网络也启用持久化
+      saveDeployments: true,
     },
     sepolia: {
-      accounts: {
-        mnemonic: MNEMONIC,
-        path: "m/44'/60'/0'/0/",
-        count: 10,
-      },
+      accounts: [PRIVATE_KEY],
       chainId: 11155111,
       url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
     },
@@ -63,27 +61,6 @@ const config: HardhatUserConfig = {
     cache: "./cache",
     sources: "./contracts",
     tests: "./test",
-  },
-  solidity: {
-    version: "0.8.27",
-    settings: {
-      metadata: {
-        // Not including the metadata hash
-        // https://github.com/paulrberg/hardhat-template/issues/31
-        bytecodeHash: "none",
-      },
-      // Disable the optimizer when debugging
-      // https://hardhat.org/hardhat-network/#solidity-optimizer-support
-      optimizer: {
-        enabled: true,
-        runs: 800,
-      },
-      evmVersion: "cancun",
-    },
-  },
-  typechain: {
-    outDir: "types",
-    target: "ethers-v6",
   },
 };
 

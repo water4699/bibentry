@@ -1,0 +1,31 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    "constructor()",
+    "event AthleteInfoUpdated(address indexed,uint256)",
+    "event AthleteRegistered(address indexed,uint256)",
+    "function categoryMinAges(uint8) view returns (uint32)",
+    "function checkAgeRequirement() returns (bytes32)",
+    "function confirmDecryption()",
+    "function finalizeResults(address,string,uint256,uint256)",
+    "function getAllEncryptedAthleteInfo() view returns (bytes32,bytes32,bytes32,bytes32,uint256)",
+    "function getAthleteAtIndex(uint256) view returns (address)",
+    "function getDecryptedAthleteInfo(address) view returns (string,uint256,uint256,uint256,bool)",
+    "function getEncryptedAge() view returns (bytes32)",
+    "function getEncryptedCategory() view returns (bytes32)",
+    "function getEncryptedContact() view returns (bytes32)",
+    "function getEncryptedName() view returns (bytes32)",
+    "function getPlainAthleteInfo(address) view returns (string,uint256,uint256,uint256)",
+    "function getRegistrationTimestamp() view returns (uint256)",
+    "function getTotalAthletes() view returns (uint256)",
+    "function isAthleteRegistered() view returns (bool)",
+    "function protocolId() pure returns (uint256)",
+    "function registerAthlete(bytes32,bytes,bytes32,bytes,bytes32,bytes,bytes32,bytes)",
+    "function registerAthleteForTesting(string,uint32,uint32,uint8)",
+    "function testIsRegistered(address) view returns (bool)"
+  ],
+  "deployedAt": "2025-11-25T11:18:21.249Z",
+  "network": "unknown",
+  "chainId": "31337",
+  "deployer": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+}
