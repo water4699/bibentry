@@ -12,30 +12,5 @@
     "NEXT_PUBLIC_FHEVM_NETWORK": "sepolia",
     "NEXT_PUBLIC_FHEVM_PKS_THRESHOLD": "0",
     "NEXT_PUBLIC_FHEVM_MAX_DECRYPTION_TIME": "0"
-  },
-  "functions": {
-    "pages/api/**/*.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "regions": ["iad1"],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, PUT, DELETE, OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type, Authorization"
-        }
-      ]
-    }
-  ]
+  }
 }
