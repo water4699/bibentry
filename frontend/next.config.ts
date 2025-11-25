@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import * as path from "path";
 
 const nextConfig: NextConfig = {
   // Disable static optimization completely to avoid wagmi context issues
@@ -11,9 +12,15 @@ const nextConfig: NextConfig = {
   // Ensure proper TypeScript resolution
   transpilePackages: ['@zama-fhe/relayer-sdk', 'ethers'],
   // Use webpack directly for better compatibility
-  webpack: (config) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Ensure TypeScript files are properly resolved
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.mjs'];
+
+    // Add path aliases for better module resolution
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname),
+    };
 
     return config;
   },
