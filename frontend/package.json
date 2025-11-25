@@ -11,7 +11,7 @@
     "dev-webpack": "npm run clean && npm run genabi && next dev",
     "genabi": "node ./scripts/genabi.mjs",
     "ishhrunning": "node ./scripts/is-hardhat-node-running.mjs",
-    "build": "cross-env TURBOPACK=0 next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
