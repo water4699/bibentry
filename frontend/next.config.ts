@@ -4,16 +4,8 @@ const nextConfig: NextConfig = {
   // Disable static optimization completely to avoid wagmi context issues
   output: 'standalone',
   trailingSlash: false,
-  // Disable Turbopack to avoid workspace root issues
-  experimental: {
-    turbopack: false,
-  },
-  webpack: (config) => {
-    // Ensure TypeScript files are properly resolved
-    config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.mjs'];
-
-    return config;
-  },
+  // Ensure proper TypeScript resolution
+  transpilePackages: ['@zama-fhe/relayer-sdk', 'ethers'],
   // Experimental features compatible with Turbopack
   headers() {
     // Required by FHEVM but compatible with Base Account SDK
