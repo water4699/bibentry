@@ -8,9 +8,9 @@ import { sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@rainbow-me/rainbowkit/styles.css";
 
-import { InMemoryStorageProvider } from "../../hooks/useInMemoryStorage";
-import { MetaMaskProvider } from "../../hooks/metamask/useMetaMaskProvider";
-import { MetaMaskEthersSignerProvider } from "../../hooks/metamask/useMetaMaskEthersSigner";
+import { InMemoryStorageProvider } from "../hooks/useInMemoryStorage";
+import { MetaMaskProvider } from "../hooks/metamask/useMetaMaskProvider";
+import { MetaMaskEthersSignerProvider } from "../hooks/metamask/useMetaMaskEthersSigner";
 
 const queryClient = new QueryClient();
 
