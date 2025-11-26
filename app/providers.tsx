@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import { WagmiProvider, http } from "wagmi";
 import { RainbowKitProvider, getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { metaMaskWallet, injectedWallet, walletConnectWallet } from "@rainbow-me/rainbowkit/wallets";
+import { metaMaskWallet, injectedWallet } from "@rainbow-me/rainbowkit/wallets";
 import { sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@rainbow-me/rainbowkit/styles.css";

@@ -51,7 +51,7 @@ export const NetworkSwitcher = () => {
             <p><strong>To add Hardhat network manually in MetaMask:</strong></p>
             <ol className="list-decimal list-inside mt-1 space-y-1">
               <li>Open MetaMask extension</li>
-              <li>Click network dropdown → "Add network"</li>
+              <li>Click network dropdown → &ldquo;Add network&rdquo;</li>
               <li>Add these details:</li>
               <ul className="list-disc list-inside ml-4">
                 <li>Network Name: Hardhat</li>

@@ -59,11 +59,8 @@ type AthleteRegistrationInfoType = {
  *
  */
 function getAthleteRegistrationInfo(chainId?: number): AthleteRegistrationInfoType {
-  // AthleteRegistrationABI is an object { abi: [...] }, extract the array
-  const abi = AthleteRegistrationABI.abi || AthleteRegistrationABI;
-
   const defaultInfo: AthleteRegistrationInfoType = {
-    abi: abi,
+    abi: AthleteRegistrationABI,
   };
 
   if (chainId === undefined) {
@@ -78,7 +75,7 @@ function getAthleteRegistrationInfo(chainId?: number): AthleteRegistrationInfoTy
   }
 
   return {
-    abi: abi,
+    abi: AthleteRegistrationABI,
     address: chainInfo.address,
     chainId: chainInfo.chainId,
     chainName: chainInfo.chainName,
@@ -377,7 +374,7 @@ export function useAthleteRegistration({
       }
 
       // Create contract with full ABI - let ethers.js handle FHE types gracefully
-      const contract = new ethers.Contract(contractAddress, contractInfo.abi, providerOrSigner);
+      const contract = new ethers.Contract(contractAddress, contractInfo.abi.abi, providerOrSigner);
       console.log("🔍 Contract created successfully");
       console.log("🔍 Contract interface fragments:", contract.interface?.fragments?.length || 0);
 
