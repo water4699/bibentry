@@ -5,10 +5,16 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   transpilePackages: ['@zama-fhe/relayer-sdk', 'ethers'],
   webpack: (config, { isServer }) => {
+    // Add path aliases for @/* imports
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, './'),
+    };
+
     // Force Node.js style module resolution
     config.resolve.modules = ['node_modules'];
 
-    // Ensure proper module resolution for relative imports
+    // Ensure proper module resolution
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
 
     // Disable symlinks for better compatibility
