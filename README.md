@@ -1,193 +1,168 @@
-# Biblock Entry - Athlete Registration System
+# FHEVM React Template
 
-A privacy-preserving athlete registration system built with Fully Homomorphic Encryption (FHE) using the FHEVM protocol by Zama. This system allows athletes to register their personal information (name, age, contact details, sport category) in an encrypted manner, ensuring that sensitive data remains private while still being verifiable on-chain.
+The FHEVM React Template is an ultra-minimal React project for building and running an FHEVM-enabled dApp.
+It works alongside the [fhevm-hardhat-template](https://github.com/zama-ai/fhevm-hardhat-template)
+and provides a simple development frontend for interacting with the `FHECounter.sol` contract.
 
-## ✨ Features
+This template also illustrates how to run your FHEVM-dApp on both Sepolia as well as a local Hardhat Node (much faster).
 
-- **Privacy-First Design**: All athlete data is encrypted using FHE and can only be decrypted by the athlete's private key
-- **Complete Registration Flow**: Submit, view, and decrypt athlete information
-- **Multi-Network Support**: Works on local development networks and testnets (Sepolia)
-- **Modern Frontend**: Built with Next.js, TypeScript, and Rainbow wallet integration
-- **Comprehensive Testing**: Full test coverage for local and testnet environments
+> [!IMPORTANT]
+> Please follow the detailed installation instructions [below](#install).
 
-## Quick Start
+## Features
 
-### Prerequisites
+- **@zama-fhe/relayer-sdk**: Fully Homomorphic Encryption for Ethereum Virtual Machine
+- **React**: Modern UI framework for building interactive interfaces
+- **Next.js**: Next-generation frontend build tool
+- **Tailwind**: Utility-first CSS framework for rapid UI development
 
-- **Node.js**: Version 20 or higher
-- **npm or yarn/pnpm**: Package manager
+## Requirements
 
-### Installation
+- You need to have Metamask browser extension installed on your browser.
 
-1. **Install dependencies**
+## Local Hardhat Network (to add in MetaMask)
 
-   ```bash
-   npm install
-   cd frontend
-   npm install
-   cd ..
-   ```
+Follow the step-by-step guide in the [Hardhat + MetaMask](https://docs.metamask.io/wallet/how-to/run-devnet/) documentation to set up your local devnet using Hardhat and MetaMask.
 
-2. **Set up environment variables**
+- Name: Hardhat
+- RPC URL: http://127.0.0.1:8545
+- Chain ID: 31337
+- Currency symbol: ETH
 
-   ```bash
-   npx hardhat vars set MNEMONIC
+## Install
 
-   # Set your Infura API key for network access
-   npx hardhat vars set INFURA_API_KEY
+### Automatic install
 
-   # Optional: Set Etherscan API key for contract verification
-   npx hardhat vars set ETHERSCAN_API_KEY
-   ```
+1. Clone this repository.
+2. From the repo root, run:
 
-3. **Compile and test contracts**
-
-   ```bash
-   npm run compile
-   npm run test
-   ```
-
-4. **Deploy to local network**
-
-   ```bash
-   # Option 1: Start a full FHEVM-enabled Hardhat node (recommended for full functionality)
-   npx hardhat node --fhevm
-
-   # Option 2: Start standard Hardhat node (works but with limited FHE functionality)
-   npx hardhat node
-
-   # Deploy to local network
-   npx hardhat deploy --network localhost
-   ```
-
-   **Note**: The FHEVM-enabled node (`--fhevm` flag) provides full FHE encryption/decryption capabilities. The standard node will still work but with limited functionality and warnings in the console.
-
-5. **Start the frontend**
-
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-6. **Deploy to Sepolia Testnet** (Optional)
-
-   ```bash
-   # Deploy to Sepolia
-   npx hardhat deploy --network sepolia
-   # Verify contract on Etherscan
-   npx hardhat verify --network sepolia <CONTRACT_ADDRESS>
-   # Test on Sepolia
-   npx hardhat test --network sepolia
-   ```
-
-## 🎯 Usage
-
-### Frontend Application
-
-1. Connect your wallet using the Rainbow wallet button in the top right
-2. **Register Athlete**: Fill out the registration form with your personal information
-3. **View My Data**: Switch to the "View My Data" tab to see your encrypted information and decrypt it
-
-### Command Line Tasks
-
-```bash
-# Get contract address
-npx hardhat --network localhost task:address
-
-# Register an athlete
-npx hardhat --network localhost task:register-athlete --name "John Doe" --age 25 --contact "john@example.com" --sport 1
-
-# Get athlete information
-npx hardhat --network localhost task:get-athlete-info
-
-# Decrypt athlete data
-npx hardhat --network localhost task:decrypt-athlete-data
-
-# Update athlete information
-npx hardhat --network localhost task:update-athlete --name "Jane Doe" --age 26 --contact "jane@example.com" --sport 2
-   ```
-
-## 📁 Project Structure
-
-```
-biblock-entry/
-├── contracts/                    # Smart contract source files
-│   └── AthleteRegistration.sol  # Athlete registration contract with FHE
-├── deploy/                       # Deployment scripts
-├── tasks/                        # Hardhat custom tasks for athlete operations
-├── test/                         # Test files for local and testnet
-├── frontend/                     # Next.js frontend application
-│   ├── app/                      # Next.js app directory
-│   ├── components/               # React components
-│   ├── hooks/                    # Custom React hooks
-│   ├── abi/                      # Contract ABIs and addresses
-│   └── fhevm/                    # FHEVM utilities and hooks
-├── hardhat.config.ts             # Hardhat configuration
-└── package.json                  # Dependencies and scripts
+```sh
+# - git clone "https://github.com/zama-ai/fhevm-hardhat-template.git" into <root>/packages
+# - npm install
+# - auto-depoy on hardhat node
+node ./scripts/install.mjs
 ```
 
-## 🏆 Sport Categories
+### Manual install
 
-The system supports the following sport categories:
+1. Clone this repository.
+2. From the repo root, execute the following:
 
-1. **Individual Sports** - Sports competed individually (e.g., tennis, swimming)
-2. **Team Sports** - Sports played in teams (e.g., soccer, basketball)
-3. **Endurance Sports** - Long-distance activities (e.g., running, cycling)
-4. **Combat Sports** - Competitive fighting sports (e.g., boxing, martial arts)
-5. **Other** - Any other sport category
+```sh
+cd ./packages
+git clone "https://github.com/zama-ai/fhevm-hardhat-template.git"
+cd ..
+npm install
+```
 
-## 🔐 Privacy & Security
+## Setup
 
-- **Fully Homomorphic Encryption**: All athlete data is encrypted on-chain using FHE
-- **Private Key Access**: Only the athlete can decrypt their own data using their private key
-- **Zero-Knowledge Proofs**: Input proofs ensure encrypted data validity without revealing content
-- **On-Chain Verification**: Contract can perform operations on encrypted data without decryption
+1. Setup your hardhat environment variables:
 
-## 📜 Available Scripts
+Follow the detailed instructions in the [FHEVM documentation](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup#set-up-the-hardhat-configuration-variables-optional) to setup `MNEMONIC` + `INFURA_API_KEY` Hardhat environment variables
 
-### Root Directory
-| Script             | Description                          |
-| ------------------ | ------------------------------------ |
-| `npm run compile`  | Compile all contracts                |
-| `npm run test`     | Run contract tests                   |
-| `npm run coverage` | Generate test coverage report        |
-| `npm run lint`     | Run linting checks                   |
-| `npm run clean`    | Clean build artifacts                |
+2. Start a local Hardhat node (new terminal):
 
-### Frontend Directory
-| Script             | Description                          |
-| ------------------ | ------------------------------------ |
-| `npm run dev`      | Start development server             |
-| `npm run build`    | Build for production                 |
-| `npm run start`    | Start production server              |
-| `npm run lint`     | Run frontend linting                 |
+```sh
+cd packages/fhevm-hardhat-template
+npx hardhat node --verbose
+# Default RPC: http://127.0.0.1:8545  | chainId: 31337
+```
 
-## 📚 Documentation
+3. Deploy `FHECounter` to the local node:
 
-- [FHEVM Documentation](https://docs.zama.ai/fhevm)
-- [FHEVM Hardhat Setup Guide](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup)
-- [FHEVM Testing Guide](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat/write_test)
-- [Rainbow Wallet Documentation](https://docs.rainbow.me/)
+```sh
+# still in packages/fhevm-hardhat-template
+npx hardhat deploy --network localhost
+```
 
-## 🤝 Business Value
+4. Deploy to Sepolia:
 
-This athlete registration system provides:
+Follows instructions in the [FHEVM documentation to setup your Hardhat project for Sepolia](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup#set-up-the-hardhat-configuration-variables-optional)
 
-- **Youth Sports Protection**: Safeguards sensitive information for young athletes
-- **Privacy Compliance**: Meets data protection requirements for sports organizations
-- **Decentralized Trust**: No central authority can access athlete data without permission
-- **Global Accessibility**: Athletes can register from anywhere in the world
+```sh
+# still in packages/fhevm-hardhat-template
+npx hardhat deploy --network sepolia
+```
 
-## 📄 License
+## Run frontend in mock mode
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+1. Start a local Hardhat node (new terminal):
 
-## 🆘 Support
+```sh
+cd packages/fhevm-hardhat-template
+npx hardhat node --verbose
+```
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/zama-ai/fhevm/issues)
-- **FHEVM Documentation**: [Zama Docs](https://docs.zama.ai)
-- **Community**: [Zama Discord](https://discord.gg/zama)
+2. From the `<root>/packages/site` run
 
----
+```sh
+npm run dev:mock
+```
 
-**Built with ❤️ using Zama's FHEVM technology**
+3. In your browser open `http://localhost:3000`
+
+4. Open Metamask connect to local Hardhat node
+   i. Select Add network.
+   ii. Select Add a network manually.
+   iii. Enter your Hardhat Network RPC URL, http://127.0.0.1:8545/ (or http://localhost:8545).
+   iv. Enter your Hardhat Network chain ID, 31337 (or 0x539 in hexadecimal format).
+
+## How to fix Hardhat Node + Metamask Errors ?
+
+When using MetaMask as a wallet provider with a development node like Hardhat, you may encounter two common types of errors:
+
+### 1. ⚠️ Nonce Mismatch ❌💥
+
+MetaMask tracks wallet nonces (the number of transactions sent from a wallet). However, if you restart your Hardhat node, the nonce is reset on the dev node, but MetaMask does not update its internal nonce tracking. This discrepancy causes a nonce mismatch error.
+
+### 2. ⚠️ View Function Call Result Mismatch ❌💥
+
+MetaMask caches the results of view function calls. If you restart your Hardhat node, MetaMask may return outdated cached data corresponding to a previous instance of the node, leading to incorrect results.
+
+### ✅ How to Fix Nonce Mismatch:
+
+To fix the nonce mismatch error, simply clear the MetaMask cache:
+
+1. Open the MetaMask browser extension.
+2. Select the Hardhat network.
+3. Go to Settings > Advanced.
+4. Click the "Clear Activity Tab" red button to reset the nonce tracking.
+
+The correct way to do this is also explained [here](https://docs.metamask.io/wallet/how-to/run-devnet/).
+
+### ✅ How to Fix View Function Return Value Mismatch:
+
+To fix the view function result mismatch:
+
+1. Restart the entire browser. MetaMask stores its cache in the extension's memory, which cannot be cleared by simply clearing the browser cache or using MetaMask's built-in cache cleaning options.
+
+By following these steps, you can ensure that MetaMask syncs correctly with your Hardhat node and avoid potential issues related to nonces and cached view function results.
+
+## Project Structure Overview
+
+### Key Files/Folders
+
+- **`<root>/packages/site/fhevm`**: This folder contains the essential hooks needed to interact with FHEVM-enabled smart contracts. It is meant to be easily copied and integrated into any FHEVM + React project.
+
+- **`<root>/packages/site/hooks/useFHECounter.tsx`**: A simple React custom hook that demonstrates how to use the `useFhevm` hook in a basic use case, serving as an example of integration.
+
+### Secondary Files/Folders
+
+- **`<root>/packages/site/hooks/metamask`**: This folder includes hooks designed to manage the MetaMask Wallet provider. These hooks can be easily adapted or replaced to support other wallet providers, following the EIP-6963 standard,
+- Additionally, the project is designed to be flexible, allowing developers to easily replace `ethers.js` with a more React-friendly library of their choice, such as `Wagmi`.
+
+## Documentation
+
+- [Hardhat + MetaMask](https://docs.metamask.io/wallet/how-to/run-devnet/): Set up your local devnet step by step using Hardhat and MetaMask.
+- [FHEVM Documentation](https://docs.zama.ai/protocol/solidity-guides/)
+- [FHEVM Hardhat](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat)
+- [@zama-fhe/relayer-sdk Documentation](https://docs.zama.ai/protocol/relayer-sdk-guides/)
+- [Setting up MNEMONIC and INFURA_API_KEY](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup#set-up-the-hardhat-configuration-variables-optional)
+- [React Documentation](https://reactjs.org/)
+- [FHEVM Discord Community](https://discord.com/invite/zama)
+- [GitHub Issues](https://github.com/zama-ai/fhevm-react-template/issues)
+
+## License
+
+This project is licensed under the BSD-3-Clause-Clear License - see the LICENSE file for details.
