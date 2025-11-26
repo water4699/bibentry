@@ -28,7 +28,7 @@ const hardhatChain = {
 
 export const wagmiConfig = getDefaultConfig({
   appName: "Biblock Entry - Athlete Registration",
-  projectId: 'demo-project-id', // Use demo project ID to avoid network issues
+  projectId: 'ef3325a718834a2b1b4134d3f520933d', // WalletConnect Project ID
   chains: [hardhatChain, sepolia], // Include both local and testnet
   ssr: false, // Disable SSR to prevent wagmi context issues
   transports: {
