@@ -294,36 +294,15 @@ export const createFhevmInstance = async (parameters: {
         console.log("[FHEVM] Using Hardhat node with FHEVM support:", fhevmRelayerMetadata);
         notify("creating");
 
-        // Try to use full mock instance, fallback to minimal if mock-utils not available
-        try {
-          //////////////////////////////////////////////////////////////////////////
-          //
-          // WARNING!!
-          // ALWAY USE DYNAMIC IMPORT TO AVOID INCLUDING THE ENTIRE FHEVM MOCK LIB
-          // IN THE FINAL PRODUCTION BUNDLE!!
-          //
-          //////////////////////////////////////////////////////////////////////////
-          const fhevmMock = await import("./mock/fhevmMock");
-          const mockInstance = await fhevmMock.fhevmMockCreateInstance({
-            rpcUrl,
-            chainId,
-            metadata: fhevmRelayerMetadata,
-          });
+        // Use minimal mock instance since @fhevm/mock-utils is not available
+        console.warn("[FHEVM] Using minimal mock instance for Hardhat node");
+        console.warn("[FHEVM] For full FHE functionality, install @fhevm/mock-utils locally");
 
-          throwIfAborted();
-
-          return mockInstance;
-        } catch (mockImportError: any) {
-          console.warn("[FHEVM] Mock utils not available, falling back to minimal mock instance");
-          console.warn("[FHEVM] For full FHE functionality, ensure @fhevm/mock-utils is available");
-
-          // Create minimal mock instance as fallback
-          const minimalMock = await createMinimalLocalMockInstance({
-            rpcUrl,
-            chainId,
-          });
-          return minimalMock;
-        }
+        const minimalMock = await createMinimalLocalMockInstance({
+          rpcUrl,
+          chainId,
+        });
+        return minimalMock;
       } else {
         // For local network (mock chain), if Hardhat node doesn't support FHEVM,
         // create a minimal local mock instance instead of using relayer SDK
