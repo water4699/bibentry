@@ -4,19 +4,13 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   trailingSlash: false,
   transpilePackages: ['@zama-fhe/relayer-sdk', 'ethers'],
-  experimental: {
-    webpackBuildWorker: false, // Disable webpack build worker to avoid module resolution issues
-  },
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Ensure proper module resolution
+  webpack: (config) => {
+    // Ensure proper module resolution for relative imports
     config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json', ...config.resolve.extensions];
 
-    // Add fallback for modules that might not resolve correctly
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-      path: false,
-      crypto: false,
+    // Add alias for better module resolution
+    config.resolve.alias = {
+      ...config.resolve.alias,
     };
 
     return config;
