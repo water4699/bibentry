@@ -46,7 +46,7 @@ export const AthleteRegistrationABI = {
     {
       "inputs": [
         {
-          "internalType": "enum AthleteRegistration.SportCategory",
+          "internalType": "uint8",
           "name": "",
           "type": "uint8"
         }

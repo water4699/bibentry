@@ -1,4 +1,5 @@
-import { isAddress, Eip1193Provider, JsonRpcProvider } from "ethers";
+import { ethers } from "ethers";
+import type { Eip1193Provider } from "ethers";
 import type {
   FhevmInitSDKOptions,
   FhevmInitSDKType,
@@ -38,7 +39,8 @@ const createMinimalLocalMockInstance = async (parameters: {
   rpcUrl: string;
   chainId: number;
 }): Promise<FhevmInstance> => {
-  const { JsonRpcProvider } = await import("ethers");
+  const ethers = await import("ethers");
+  const JsonRpcProvider = ethers.providers.JsonRpcProvider;
 
   // Create a basic provider
   const provider = new JsonRpcProvider(parameters.rpcUrl);
@@ -134,7 +136,8 @@ async function getChainId(
   providerOrUrl: Eip1193Provider | string
 ): Promise<number> {
   if (typeof providerOrUrl === "string") {
-    const provider = new JsonRpcProvider(providerOrUrl);
+    const ethers = await import("ethers");
+    const provider = new ethers.providers.JsonRpcProvider(providerOrUrl);
     return Number((await provider.getNetwork()).chainId);
   }
   const chainId = await providerOrUrl.request({ method: "eth_chainId" });
@@ -142,7 +145,8 @@ async function getChainId(
 }
 
 async function getWeb3Client(rpcUrl: string) {
-  const rpc = new JsonRpcProvider(rpcUrl);
+  const ethers = await import("ethers");
+  const rpc = new ethers.providers.JsonRpcProvider(rpcUrl);
   try {
     const version = await rpc.send("web3_clientVersion", []);
     return version;
@@ -153,7 +157,8 @@ async function getWeb3Client(rpcUrl: string) {
       e
     );
   } finally {
-    rpc.destroy();
+    // In ethers v5, remove all listeners instead of destroy()
+    rpc.removeAllListeners();
   }
 }
 
@@ -213,7 +218,8 @@ async function tryFetchFHEVMHardhatNodeRelayerMetadata(rpcUrl: string): Promise<
 }
 
 async function getFHEVMRelayerMetadata(rpcUrl: string) {
-  const rpc = new JsonRpcProvider(rpcUrl);
+  const ethers = await import("ethers");
+  const rpc = new ethers.providers.JsonRpcProvider(rpcUrl);
   try {
     const version = await rpc.send("fhevm_relayer_metadata", []);
     return version;
@@ -224,7 +230,8 @@ async function getFHEVMRelayerMetadata(rpcUrl: string) {
       e
     );
   } finally {
-    rpc.destroy();
+    // In ethers v5, remove all listeners instead of destroy()
+    rpc.removeAllListeners();
   }
 }
 

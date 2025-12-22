@@ -370,7 +370,7 @@ export function useAthleteRegistration({
       let providerOrSigner: ethers.Signer | ethers.Provider | undefined = ethersSigner;
       if (isLocalNetwork && !ethersSigner) {
         console.log("🔍 Local network - creating JsonRpcProvider for contract");
-        providerOrSigner = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
+        providerOrSigner = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545");
       }
 
       // Create contract with full ABI - let ethers.js handle FHE types gracefully
@@ -912,10 +912,10 @@ export function useAthleteRegistration({
                 sportCategory,
                 registrationTimestamp: BigInt(Math.floor(Date.now() / 1000)),
                 // Store FHE handles as hex strings for decryption
-                nameHandle: ethers.hexlify(encryptedNameInput.handles[0]),
-                ageHandle: ethers.hexlify(encryptedAgeInput.handles[0]),
-                contactHandle: ethers.hexlify(encryptedContactInput.handles[0]),
-                categoryHandle: ethers.hexlify(encryptedCategoryInput.handles[0]),
+                nameHandle: ethers.utils.hexlify(encryptedNameInput.handles[0]),
+                ageHandle: ethers.utils.hexlify(encryptedAgeInput.handles[0]),
+                contactHandle: ethers.utils.hexlify(encryptedContactInput.handles[0]),
+                categoryHandle: ethers.utils.hexlify(encryptedCategoryInput.handles[0]),
             };
 
             // Persist data to localStorage

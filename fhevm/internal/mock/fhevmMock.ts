@@ -6,7 +6,8 @@
 //
 //////////////////////////////////////////////////////////////////////////
 
-import { JsonRpcProvider } from "ethers";
+import { ethers } from "ethers";
+const JsonRpcProvider = ethers.providers.JsonRpcProvider;
 import { MockFhevmInstance } from "@fhevm/mock-utils";
 import { FhevmInstance } from "../../fhevmTypes";
 

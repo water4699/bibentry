@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "E:\\Spring\\Zama\\biblock-entry\\contracts\\AthleteRegistration.sol": {
-      "lastModificationDate": 1764064880189,
-      "contentHash": "fd6721dfaa3c3dfce8e72db14684387f",
+      "lastModificationDate": 1764399629626,
+      "contentHash": "15f2a11cb4562ce139a49d5ae9705cbc",
       "sourceName": "contracts/AthleteRegistration.sol",
       "solcConfig": {
         "version": "0.8.27",
@@ -39,123 +39,6 @@
       ],
       "artifacts": [
         "AthleteRegistration"
-      ]
-    },
-    "E:\\Spring\\Zama\\biblock-entry\\contracts\\SimpleTest.sol": {
-      "lastModificationDate": 1763831036200,
-      "contentHash": "d5eb04016aee15ede6c178156bb70032",
-      "sourceName": "contracts/SimpleTest.sol",
-      "solcConfig": {
-        "version": "0.8.27",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.27"
-      ],
-      "artifacts": [
-        "SimpleTest"
-      ]
-    },
-    "E:\\Spring\\Zama\\biblock-entry\\contracts\\TestArtifact.sol": {
-      "lastModificationDate": 1763827952748,
-      "contentHash": "36c600698caab50c5e6fd59459735e20",
-      "sourceName": "contracts/TestArtifact.sol",
-      "solcConfig": {
-        "version": "0.8.27",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.26"
-      ],
-      "artifacts": [
-        "TestArtifact"
-      ]
-    },
-    "E:\\Spring\\Zama\\biblock-entry\\fhevmTemp\\@fhevm\\solidity\\config\\ZamaConfig.sol": {
-      "lastModificationDate": 1762326442773,
-      "contentHash": "53afa19b446a7b49a624afc5d40ac227",
-      "sourceName": "@fhevm/solidity/config/ZamaConfig.sol",
-      "solcConfig": {
-        "version": "0.8.27",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@zama-fhe/oracle-solidity/address/ZamaOracleAddress.sol",
-        "@fhevm/solidity/lib/FHE.sol",
-        "@fhevm/solidity/lib/Impl.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "EthereumConfig",
-        "SepoliaConfig",
-        "ZamaConfig"
       ]
     },
     "E:\\Spring\\Zama\\biblock-entry\\node_modules\\@fhevm\\solidity\\lib\\FHE.sol": {
@@ -200,41 +83,6 @@
         "IDecryptionOracle",
         "IKMSVerifier"
       ]
-    },
-    "E:\\Spring\\Zama\\biblock-entry\\fhevmTemp\\@zama-fhe\\oracle-solidity\\address\\ZamaOracleAddress.sol": {
-      "lastModificationDate": 1762326442752,
-      "contentHash": "7d4cce05c3d5e3799454d5a9fba75048",
-      "sourceName": "@zama-fhe/oracle-solidity/address/ZamaOracleAddress.sol",
-      "solcConfig": {
-        "version": "0.8.27",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "viaIR": true,
-          "evmVersion": "paris",
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": []
     },
     "E:\\Spring\\Zama\\biblock-entry\\node_modules\\@fhevm\\solidity\\lib\\Impl.sol": {
       "lastModificationDate": 1763579332623,

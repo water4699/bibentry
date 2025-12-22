@@ -1,6 +1,6 @@
 // Use hardhat runtime environment
 const hre = require("hardhat");
-const { ethers } = require("hardhat");
+const ethers = require("ethers");
 const fs = require('fs');
 const path = require('path');
 
@@ -10,7 +10,7 @@ async function main() {
 
   try {
     // Connect to local hardhat network
-    const provider = new ethers.JsonRpcProvider("http://127.0.0.1:8545");
+    const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545");
     const signer = await provider.getSigner();
 
     console.log("📡 Connected to local Hardhat network");
@@ -20,7 +20,7 @@ async function main() {
     const signerAddress = await signer.getAddress();
     const balance = await provider.getBalance(signerAddress);
     console.log(`💰 Deployer: ${signerAddress}`);
-    console.log(`💵 Balance: ${ethers.formatEther(balance)} ETH`);
+    console.log(`💵 Balance: ${ethers.utils.formatEther(balance)} ETH`);
 
     // Deploy the contract using hardhat
     console.log("🏗️ Deploying AthleteRegistration contract...");

@@ -1,0 +1,221 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+import {FHE, euint32, externalEuint32, ebool} from "@fhevm/solidity/lib/FHE.sol";
+import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
+
+/// @title Encrypted Athlete Registration Contract
+/// @notice Privacy-preserving athlete registration using Fully Homomorphic Encryption (FHE)
+/// @dev Athletes submit encrypted personal information including name, age, contact, and sport category
+/// @dev All data remains encrypted on-chain and can only be decrypted by the athlete's private key
+contract AthleteRegistration is SepoliaConfig {
+    /// @notice Structure to store encrypted athlete registration information
+    /// @dev All personal data is encrypted to protect athlete privacy
+    struct AthleteInfo {
+        euint32 nameHash; // Hash of athlete's name (simplified representation)
+        euint32 age; // Athlete's age
+        euint32 contactHash; // Hash of contact information (simplified representation)
+        euint32 sportCategory; // Sport category (1: Individual, 2: Team, 3: Endurance, 4: Combat, 5: Other)
+        uint256 registrationTimestamp; // Registration timestamp
+        bool isRegistered; // Flag to check if athlete is registered
+    }
+
+    /// @notice Mapping from athlete address to their encrypted registration information
+    mapping(address => AthleteInfo) private athleteRegistrations;
+
+    /// @notice Array to track all registered athletes
+    address[] private registeredAthletes;
+
+    /// @notice Event emitted when an athlete registers
+    event AthleteRegistered(address indexed athlete, uint256 timestamp);
+
+    /// @notice Event emitted when athlete info is updated
+    event AthleteInfoUpdated(address indexed athlete, uint256 timestamp);
+
+    /// @notice Register athlete with encrypted personal information
+    /// @param _nameHash Encrypted hash representation of athlete's name
+    /// @param _nameProof Proof for name hash encryption
+    /// @param _age Encrypted age value
+    /// @param _ageProof Proof for age encryption
+    /// @param _contactHash Encrypted hash representation of contact information
+    /// @param _contactProof Proof for contact hash encryption
+    /// @param _sportCategory Encrypted sport category (1-5)
+    /// @param _sportProof Proof for sport category encryption
+    /// @dev All personal information is stored encrypted and can only be accessed by the athlete
+    function registerAthlete(
+        externalEuint32 _nameHash,
+        bytes calldata _nameProof,
+        externalEuint32 _age,
+        bytes calldata _ageProof,
+        externalEuint32 _contactHash,
+        bytes calldata _contactProof,
+        externalEuint32 _sportCategory,
+        bytes calldata _sportProof
+    ) external {
+        // Convert external encrypted inputs to internal encrypted values
+        euint32 encNameHash = FHE.fromExternal(_nameHash, _nameProof);
+        euint32 encAge = FHE.fromExternal(_age, _ageProof);
+        euint32 encContactHash = FHE.fromExternal(_contactHash, _contactProof);
+        euint32 encSportCategory = FHE.fromExternal(_sportCategory, _sportProof);
+
+        // Track new athlete registrations
+        if (!athleteRegistrations[msg.sender].isRegistered) {
+            registeredAthletes.push(msg.sender);
+        }
+
+        // Store encrypted athlete information
+        athleteRegistrations[msg.sender] = AthleteInfo({
+            nameHash: encNameHash,
+            age: encAge,
+            contactHash: encContactHash,
+            sportCategory: encSportCategory,
+            registrationTimestamp: block.timestamp,
+            isRegistered: true
+        });
+
+        // Grant decryption permissions to the athlete for all fields
+        FHE.allow(encNameHash, msg.sender);
+        FHE.allow(encAge, msg.sender);
+        FHE.allow(encContactHash, msg.sender);
+        FHE.allow(encSportCategory, msg.sender);
+
+        // Allow contract to access encrypted data for future operations
+        FHE.allowThis(encNameHash);
+        FHE.allowThis(encAge);
+        FHE.allowThis(encContactHash);
+        FHE.allowThis(encSportCategory);
+
+        emit AthleteRegistered(msg.sender, block.timestamp);
+    }
+
+    /// @notice Update athlete registration information
+    /// @param _nameHash Encrypted hash representation of athlete's name
+    /// @param _nameProof Proof for name hash encryption
+    /// @param _age Encrypted age value
+    /// @param _ageProof Proof for age encryption
+    /// @param _contactHash Encrypted hash representation of contact information
+    /// @param _contactProof Proof for contact hash encryption
+    /// @param _sportCategory Encrypted sport category (1-5)
+    /// @param _sportProof Proof for sport category encryption
+    function updateAthleteInfo(
+        externalEuint32 _nameHash,
+        bytes calldata _nameProof,
+        externalEuint32 _age,
+        bytes calldata _ageProof,
+        externalEuint32 _contactHash,
+        bytes calldata _contactProof,
+        externalEuint32 _sportCategory,
+        bytes calldata _sportProof
+    ) external {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+
+        // Convert external encrypted inputs to internal encrypted values
+        euint32 encNameHash = FHE.fromExternal(_nameHash, _nameProof);
+        euint32 encAge = FHE.fromExternal(_age, _ageProof);
+        euint32 encContactHash = FHE.fromExternal(_contactHash, _contactProof);
+        euint32 encSportCategory = FHE.fromExternal(_sportCategory, _sportProof);
+
+        // Update encrypted athlete information
+        athleteRegistrations[msg.sender].nameHash = encNameHash;
+        athleteRegistrations[msg.sender].age = encAge;
+        athleteRegistrations[msg.sender].contactHash = encContactHash;
+        athleteRegistrations[msg.sender].sportCategory = encSportCategory;
+
+        // Grant decryption permissions to the athlete for all fields
+        FHE.allow(encNameHash, msg.sender);
+        FHE.allow(encAge, msg.sender);
+        FHE.allow(encContactHash, msg.sender);
+        FHE.allow(encSportCategory, msg.sender);
+
+        // Allow contract to access encrypted data for future operations
+        FHE.allowThis(encNameHash);
+        FHE.allowThis(encAge);
+        FHE.allowThis(encContactHash);
+        FHE.allowThis(encSportCategory);
+
+        emit AthleteInfoUpdated(msg.sender, block.timestamp);
+    }
+
+    /// @notice Get encrypted name hash for the caller
+    /// @return Encrypted name hash value
+    function getNameHash() external view returns (euint32) {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+        return athleteRegistrations[msg.sender].nameHash;
+    }
+
+    /// @notice Get encrypted age for the caller
+    /// @return Encrypted age value
+    function getAge() external view returns (euint32) {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+        return athleteRegistrations[msg.sender].age;
+    }
+
+    /// @notice Get encrypted contact hash for the caller
+    /// @return Encrypted contact hash value
+    function getContactHash() external view returns (euint32) {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+        return athleteRegistrations[msg.sender].contactHash;
+    }
+
+    /// @notice Get encrypted sport category for the caller
+    /// @return Encrypted sport category value
+    function getSportCategory() external view returns (euint32) {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+        return athleteRegistrations[msg.sender].sportCategory;
+    }
+
+    /// @notice Get registration timestamp
+    /// @return Timestamp value
+    function getRegistrationTimestamp() external view returns (uint256) {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+        return athleteRegistrations[msg.sender].registrationTimestamp;
+    }
+
+    /// @notice Check if athlete is registered
+    /// @return True if athlete is registered, false otherwise
+    function isAthleteRegistered() external view returns (bool) {
+        return athleteRegistrations[msg.sender].isRegistered;
+    }
+
+    /// @notice Get total number of registered athletes
+    /// @return Total athlete count
+    function getTotalAthletes() external view returns (uint256) {
+        return registeredAthletes.length;
+    }
+
+    /// @notice Get athlete address at specific index
+    /// @param index Index in the registered athletes array
+    /// @return Athlete address
+    function getAthleteAtIndex(uint256 index) external view returns (address) {
+        require(index < registeredAthletes.length, "Index out of bounds");
+        return registeredAthletes[index];
+    }
+
+    /// @notice Get all encrypted athlete information for the caller
+    /// @return nameHash Encrypted name hash
+    /// @return age Encrypted age
+    /// @return contactHash Encrypted contact hash
+    /// @return sportCategory Encrypted sport category
+    /// @return timestamp Registration timestamp
+    function getAllAthleteInfo()
+        external
+        view
+        returns (
+            euint32 nameHash,
+            euint32 age,
+            euint32 contactHash,
+            euint32 sportCategory,
+            uint256 timestamp
+        )
+    {
+        require(athleteRegistrations[msg.sender].isRegistered, "Athlete not registered");
+        AthleteInfo storage athlete = athleteRegistrations[msg.sender];
+        return (
+            athlete.nameHash,
+            athlete.age,
+            athlete.contactHash,
+            athlete.sportCategory,
+            athlete.registrationTimestamp
+        );
+    }
+}
